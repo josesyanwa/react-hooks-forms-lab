@@ -1,15 +1,26 @@
-import React from "react";
+// Filter.js
+import React, { useState } from "react";
 
-function Filter({ onCategoryChange }) {
+function Filter({ onCategoryChange, onSearchChange }) {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearchChange = (event) => {
+    const text = event.target.value;
+    setSearchText(text);
+    onSearchChange(text); // Propagate the search text change to the parent component
+  };
+
   return (
     <div className="Filter">
-      <input type="text" name="search" placeholder="Search..." />
       <select name="filter" onChange={onCategoryChange}>
-        <option value="All">Filter by category</option>
-        <option value="Produce">Produce</option>
-        <option value="Dairy">Dairy</option>
-        <option value="Dessert">Dessert</option>
+        {/* ... options ... */}
       </select>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchText}
+        onChange={handleSearchChange}
+      />
     </div>
   );
 }
